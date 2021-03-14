@@ -9,6 +9,9 @@ function Shop() {
         fetchItems();
     }, []);
 
+    // creating a state to put items in
+    const [items, setItems] = useState([]);
+
     // added async b/c its coming from a database
     const fetchItems = async () => {
         const data = await fetch('https://fakestoreapi.com/products')
@@ -17,11 +20,17 @@ function Shop() {
 
         const items = await data.json();
         console.log(items);
+        setItems(items);
     }
+
     return (
-    <div>
-        <h1>Shop Page</h1>
-    </div>
+        <div>
+            <h1>Shop Page</h1>
+
+            {items.map(item => (
+                <h1 key={item.id}>{item.title}</h1>
+            ))}
+        </div>
     );
 }
 
